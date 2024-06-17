@@ -1,0 +1,7 @@
+=> 
+[[32m#<User id: 1, email: "admin@example.com", role: "admin", created_at: "2024-06-14 17:44:54.562927000 +0000", updated_at: "2024-06-14 17:44:54.562927000 +0000">[0m,
+ [32m#<User id: 2, email: "user@example.com", role: "normal", created_at: "2024-06-14 17:44:54.826685000 +0000", updated_at: "2024-06-14 17:44:54.826685000 +0000">[0m,
+ [32m#<User id: 3, email: "admin12@example.com", role: "admin", created_at: "2024-06-14 17:46:06.792734000 +0000", updated_at: "2024-06-14 17:46:06.792734000 +0000">[0m,
+ [32m#<User id: 4, email: "admin123@example.com", role: "admin", created_at: "2024-06-15 14:09:08.906186000 +0000", updated_at: "2024-06-15 14:09:08.906186000 +0000">[0m,
+ [32m#<User id: 5, email: "admin123444@example.com", role: "admin", created_at: "2024-06-15 14:09:43.233861000 +0000", updated_at: "2024-06-15 14:09:43.233861000 +0000">[0m,
+ [32m#<User id: 6, email: "user12344@example.com", role: "normal", created_at: "2024-06-15 14:09:43.502313000 +0000", updated_at: "2024-06-15 14:09:43.502313000 +0000">[0m]
