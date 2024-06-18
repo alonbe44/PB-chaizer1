@@ -22,7 +22,8 @@ class LocationsController < ApplicationController
     authorize @location
 
     if @location.save
-      render json: @location, status: :created, location: @location
+      redirect_to locations_path, notice: 'Location was successfully Created.'
+      #render json: @location, status: :created, location: @location
     else
       render json: @location.errors, status: :unprocessable_entity
     end
@@ -31,7 +32,8 @@ class LocationsController < ApplicationController
   def update
     authorize @location
     if @location.update(location_params)
-      render json: @location
+      #render json: @location
+      redirect_to locations_path, notice: 'Location was successfully Updated.'
     else
       render json: @location.errors, status: :unprocessable_entity
     end
@@ -48,6 +50,8 @@ end
   def destroy
     authorize @location
     @location.destroy
+        redirect_to locations_path, notice: 'Location was successfully destroyed.'
+
   end
 
   private

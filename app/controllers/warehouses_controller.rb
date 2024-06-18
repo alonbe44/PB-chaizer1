@@ -6,7 +6,12 @@ class WarehousesController < ApplicationController
   def index
     @warehouses = policy_scope(Warehouse)
     authorize @warehouses
-    render json: @warehouses, include: ['stations', 'power_banks']
+    render("warehouses/Warehouses")
+    #render json: @warehouses, include: ['stations', 'power_banks']
+  end
+    def new
+    @warehouses = Warehouse.new
+    authorize @warehouses
   end
 
   def show
@@ -19,7 +24,9 @@ class WarehousesController < ApplicationController
     authorize @warehouse
 
     if @warehouse.save
-      render json: @warehouse, status: :created, location: @warehouse
+      #Uncomment to return Json Res
+      #render json: @warehouse, status: :created, location: @warehouse
+      redirect_to warehouses_path, notice: 'Warehouse was successfully Created.'
     else
       render json: @warehouse.errors, status: :unprocessable_entity
     end
@@ -28,15 +35,26 @@ class WarehousesController < ApplicationController
   def update
     authorize @warehouse
     if @warehouse.update(warehouse_params)
-      render json: @warehouse
+      #Uncomment to return Json Res
+      # render json: @warehouse
+      redirect_to warehouses_path, notice: 'Warehouse was successfully Updated.'
     else
       render json: @warehouse.errors, status: :unprocessable_entity
     end
   end
+   def edit
+   @warehouses = Warehouse.find(params[:id])  # Assuming you have an ID param
+  if @warehouses.present?
+    authorize @warehouses
+  else
+    # Handle the case where @location is nil (e.g., redirect, flash message)
+  end
+end
 
   def destroy
     authorize @warehouse
     @warehouse.destroy
+    redirect_to warehouses_path, notice: 'Warehouse was successfully Destroyed.'
   end
 
   private

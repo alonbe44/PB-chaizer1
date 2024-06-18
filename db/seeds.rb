@@ -27,10 +27,10 @@ station2 = Station.find_or_create_by!(name: 'Station 2', status: 'offline', ware
 
 # Create power banks and assign them to station1
 10.times do |i|
-  PowerBank.find_or_create_by!(serial_number: "PB-#{i}", status: 'available', station: station1)
+  PowerBank.find_or_create_by!(serial_number: "friend-#{i+2}", status: 'available', station: station1)
 end
 
 # Create power banks and assign them to the warehouse
 5.times do |i|
-  PowerBank.find_or_create_by!(serial_number: "PB-#{i+10}", status: 'available', warehouse: warehouse)
+  PowerBank.find_or_create_by!(serial_number: "friend-#{i+11}", status: 'available', warehouse: warehouse)
 end

@@ -29,12 +29,34 @@
 #     record.user
 #   end
 # end
+# class PowerBankPolicy < ApplicationPolicy
+#   class Scope < Scope
+#     def resolve
+#       scope.all
+#     end
+#   end
+#
+#   def index?
+#     true  # Example: Allow anyone to list PowerBanks
+#   end
+#
+#   def show?
+#     true  # Example: Allow anyone to view a PowerBank
+#   end
+#
+#   # Define other methods like create?, update?, destroy? as needed
+#
+#   private
+#
+#   def user_can_access_power_bank?
+#     # Logic to check if the user can access a specific power bank
+#     # Example: record.user == user || user.admin?
+#     # Note: `record` here should be an instance of PowerBank
+#   end
+# end
+
 class PowerBankPolicy < ApplicationPolicy
-  class Scope < Scope
-    def resolve
-      scope.all
-    end
-  end
+  # Scope class definition remains the same as above
 
   def index?
     true  # Example: Allow anyone to list PowerBanks
@@ -44,13 +66,21 @@ class PowerBankPolicy < ApplicationPolicy
     true  # Example: Allow anyone to view a PowerBank
   end
 
-  # Define other methods like create?, update?, destroy? as needed
+  def create?
+    user.admin?  # Example: Only admins can create new PowerBanks
+  end
+
+  def update?
+    user.admin? || record.user == user  # Example: Admins or owners can update
+  end
+
+  def destroy?
+    user.admin? || record.user == user  # Example: Admins or owners can delete
+  end
 
   private
 
   def user_can_access_power_bank?
-    # Logic to check if the user can access a specific power bank
-    # Example: record.user == user || user.admin?
-    # Note: `record` here should be an instance of PowerBank
+    record.user == user || user.admin?
   end
 end

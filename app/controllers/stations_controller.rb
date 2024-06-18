@@ -6,9 +6,14 @@ class StationsController < ApplicationController
   def index
     @stations = policy_scope(Station)
     authorize @stations
-    render json: @stations
+    #Uncomment to enable return Json only
+    # render json: @stations
+        render("stations/stations")
   end
-
+  def new
+    @stations =   Station.new
+    authorize @stations
+  end
   def show
     authorize @station
     render json: @station
@@ -19,7 +24,10 @@ class StationsController < ApplicationController
     authorize @station
 
     if @station.save
-      render json: @station, status: :created, location: @station
+      #Uncomment to enable return Json only
+      #render json: @station, status: :created, location: @station
+      redirect_to stations_path, notice: 'Stations was successfully Created.'
+
     else
       render json: @station.errors, status: :unprocessable_entity
     end
@@ -28,15 +36,26 @@ class StationsController < ApplicationController
   def update
     authorize @station
     if @station.update(station_params)
-      render json: @station
+      #Uncomment to enable return Json only
+      #render json: @station
+      redirect_to stations_path, notice: 'Stations was successfully Updated.'
     else
       render json: @station.errors, status: :unprocessable_entity
     end
   end
-
+ def edit
+  @stations = Station.find(params[:id])  # Assuming you have an ID param
+  if @stations.present?
+    authorize @stations
+  else
+    # Handle the case where @location is nil (e.g., redirect, flash message)
+  end
+end
   def destroy
     authorize @station
     @station.destroy
+    redirect_to stations_path, notice: 'Stations was successfully Destroyed.'
+
   end
 
   private

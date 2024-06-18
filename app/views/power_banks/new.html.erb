@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @power_banks.new_record? ? 'New Power Banks' : 'Edit Power Banks' %></title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 700px;
+      margin: 20px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .field, .actions {
+      margin-bottom: 20px;
+    }
+    .field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    .field input[type="text"],
+    .field select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .actions input[type="submit"] {
+      width: 100%;
+      padding: 15px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .actions input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    #error_explanation {
+      border: 2px solid #ff4c4c;
+      padding: 15px;
+      background-color: #ffe6e6;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    #error_explanation h2 {
+      color: #ff4c4c;
+      margin: 0 0 10px;
+    }
+    #error_explanation ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    #error_explanation ul li {
+      color: #ff4c4c;
+    }
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><%= @power_banks.new_record? ? 'New Power Bank' : 'Edit Power Bank' %></h1>
+    <%= form_with(model: @power_banks) do |form| %>
+      <% if @power_banks.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@power_banks.errors.count, "error") %> prohibited this power bank from being saved:</h2>
+          <ul>
+            <% @power_banks.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.label :station_id %>
+        <%= form.text_field :station_id %>
+      </div>
+      <div class="field">
+        <%= form.label :user_id %>
+        <%= form.text_field :user_id %>
+      </div>
+      <div class="field">
+        <%= form.label :warehouse_id %>
+        <%= form.text_field :warehouse_id %>
+      </div>
+      <div class="field">
+        <%= form.label :serial_number %>
+        <%= form.text_field :serial_number %>
+      </div>
+      <div class="field">
+        <%= form.label :status %>
+        <%= form.select :status, options_for_select([['Available', 'available'], ['Unavailable', 'unavailable']], @power_banks.status) %>
+      </div>
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
+    <%= link_to 'Back', power_banks_path, class: "back-link" %>
+  </div>
+</body>
+</html>

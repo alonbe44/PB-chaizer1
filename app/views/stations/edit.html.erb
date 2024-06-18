@@ -3,59 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Location</title>
+  <title>Edit Station</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafc;
       margin: 0;
       padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
     .container {
       max-width: 600px;
-      margin: 50px auto;
-      background: #fff;
+      margin: 20px;
       padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
     }
     h1 {
       color: #333;
       text-align: center;
+      margin-bottom: 20px;
     }
     .field, .actions {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
     .field label {
       display: block;
       font-weight: bold;
       margin-bottom: 5px;
+      color: #555;
     }
-    .field input[type="text"] {
+    .field input[type="text"],
+    .field select {
       width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
       box-sizing: border-box;
     }
     .actions input[type="submit"] {
       width: 100%;
-      padding: 10px;
-      background-color: #28a745;
+      padding: 15px;
+      background-color: #007bff;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       color: white;
       font-size: 16px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
     .actions input[type="submit"]:hover {
-      background-color: #218838;
+      background-color: #0056b3;
     }
     #error_explanation {
       border: 2px solid #ff4c4c;
-      padding: 10px;
+      padding: 15px;
       background-color: #ffe6e6;
-      border-radius: 4px;
+      border-radius: 5px;
       margin-bottom: 20px;
     }
     #error_explanation h2 {
@@ -77,21 +85,22 @@
       text-decoration: none;
       color: #007bff;
       font-weight: bold;
+      transition: color 0.3s;
     }
     .back-link:hover {
-      text-decoration: underline;
+      color: #0056b3;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Edit Location</h1>
-    <%= form_with(model: @location) do |form| %>
-      <% if @location.errors.any? %>
+    <h1>Edit Station</h1>
+    <%= form_with(model: @stations) do |form| %>
+      <% if @stations.errors.any? %>
         <div id="error_explanation">
-          <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+          <h2><%= pluralize(@stations.errors.count, "error") %> prohibited this station from being saved:</h2>
           <ul>
-            <% @location.errors.full_messages.each do |message| %>
+            <% @stations.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
           </ul>
@@ -102,14 +111,22 @@
         <%= form.text_field :name %>
       </div>
       <div class="field">
-        <%= form.label :address %>
-        <%= form.text_field :address %>
+        <%= form.label :location_id %>
+        <%= form.text_field :location_id %>
+      </div>
+      <div class="field">
+        <%= form.label :warehouse_id %>
+        <%= form.text_field :warehouse_id %>
+      </div>
+      <div class="field">
+        <%= form.label :status %>
+        <%= form.select :status, options_for_select([['Online', 'online'], ['Offline', 'offline']], @stations.status) %>
       </div>
       <div class="actions">
-        <%= form.submit %>
+        <%= form.submit 'Save' %>
       </div>
     <% end %>
-    <%= link_to 'Back', locations_path, class: "back-link" %>
+    <%= link_to 'Back', stations_path, class: "back-link" %>
   </div>
 </body>
 </html>
