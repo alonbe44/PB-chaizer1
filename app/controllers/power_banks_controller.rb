@@ -4,6 +4,9 @@ class PowerBanksController < ApplicationController
   before_action :set_power_bank, only: [:show, :update, :destroy]
   before_action :authenticate_user!
   after_action :verify_authorized
+    include Pundit
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
     @power_banks = PowerBank.all
@@ -64,5 +67,11 @@ end
 
   def power_bank_params
     params.require(:power_bank).permit(:serial_number, :status, :station_id, :warehouse_id, :user_id)
+  end
+     def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+
+    redirect_to request.referrer || root_path ,notice: "You are not authorized to perform this action as #{current_user.role} User."
+
   end
 end

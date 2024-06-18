@@ -1,10 +1,10 @@
 class WarehousePolicy < ApplicationPolicy
   def index?
-    user.admin? || user.normal?
+    user.admin?
   end
 
   def show?
-    user.admin? || user.normal?
+    user.admin?
   end
 
   def create?
@@ -16,6 +16,9 @@ class WarehousePolicy < ApplicationPolicy
   end
 
   def destroy?
+    user.admin?
+  end
+   def edit?
     user.admin?
   end
 

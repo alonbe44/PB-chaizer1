@@ -6,6 +6,9 @@ class LocationPolicy < ApplicationPolicy
   def show?
     user.admin? || user.normal?
   end
+    def edit?
+    user.admin?
+  end
 
   def create?
     user.admin?

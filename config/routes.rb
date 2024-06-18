@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   resources :stations
   resources :warehouses
   resources :power_banks
-  root 'users#index'
+  root to: 'home#index'
+    # root 'users#index'
 end

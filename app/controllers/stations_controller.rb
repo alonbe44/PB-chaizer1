@@ -2,6 +2,9 @@ class StationsController < ApplicationController
   before_action :set_station, only: [:show, :update, :destroy]
   before_action :authenticate_user!
   after_action :verify_authorized
+    include Pundit
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
     @stations = policy_scope(Station)
@@ -66,5 +69,11 @@ end
 
   def station_params
     params.require(:station).permit(:name, :status, :location_id, :warehouse_id)
+  end
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+
+    redirect_to request.referrer || root_path ,notice: "You are not authorized to perform this action as #{current_user.role} User."
+
   end
 end

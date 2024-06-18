@@ -2,6 +2,9 @@ class WarehousesController < ApplicationController
   before_action :set_warehouse, only: [:show, :update, :destroy]
   before_action :authenticate_user!
   after_action :verify_authorized
+    include Pundit
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def index
     @warehouses = policy_scope(Warehouse)
@@ -65,5 +68,12 @@ end
 
   def warehouse_params
     params.require(:warehouse).permit(:name, :address)
+  end
+
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+
+    redirect_to request.referrer || root_path ,notice: "You are not authorized to perform this action as #{current_user.role} User."
+
   end
 end
