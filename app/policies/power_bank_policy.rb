@@ -14,10 +14,10 @@ class PowerBankPolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || record.user == user ||user.role=="normal"
+    user.admin? || record.user == user ||(user.role == "normal" )
   end
    def edit?
-    user.admin? ||user.role=="normal"
+    user.admin? ||(user.role == "normal" )
   end
   def destroy?
     user.admin? || record.user == user  # Example: Admins or owners can delete
@@ -25,7 +25,6 @@ class PowerBankPolicy < ApplicationPolicy
 
   private
 
-  def user_can_access_power_bank?
-    record.user == user || user.admin?
-  end
+
+
 end

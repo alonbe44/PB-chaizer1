@@ -44,6 +44,12 @@
       border: 1px solid #ddd;
       border-radius: 5px;
       box-sizing: border-box;
+      <% if policy(@power_banks).edit? && @power_banks.status == 'normal' %>
+        <% if form.object != current_user %>
+          pointer-events: none;
+          background-color: #f0f0f0;
+        <% end %>
+      <% end %>
     }
     .actions input[type="submit"] {
       width: 100%;
@@ -108,24 +114,24 @@
       <% end %>
       <div class="field">
         <%= form.label :station_id %>
-        <%= form.text_field :station_id %>
+        <%= form.text_field :station_id, disabled: !policy(@power_banks).edit? || @power_banks.status == 'normal' && form.object != current_user %>
       </div>
 
       <div class="field">
         <%= form.label :user_id %>
-        <%= form.text_field :user_id %>
+        <%= form.text_field :user_id, disabled: !policy(@power_banks).edit? || @power_banks.status == 'normal' && form.object != current_user %>
       </div>
       <div class="field">
         <%= form.label :warehouse_id %>
-        <%= form.text_field :warehouse_id %>
+        <%= form.text_field :warehouse_id, disabled: !policy(@power_banks).edit? || @power_banks.status == 'normal' && form.object != current_user %>
       </div>
       <div class="field">
         <%= form.label :serial_number %>
-        <%= form.text_field :serial_number %>
+        <%= form.text_field :serial_number, disabled: !policy(@power_banks).edit? || @power_banks.status == 'normal' && form.object != current_user %>
       </div>
-   <div class="field">
+      <div class="field">
         <%= form.label :status %>
-        <%= form.select :status, options_for_select([['Available', 'available'], ['Unavailable', 'unavailable']], @power_banks.status) %>
+        <%= form.select :status, options_for_select([['Available', 'available'], ['Unavailable', 'unavailable']], @power_banks.status), disabled: !policy(@power_banks).edit? || @power_banks.status == 'normal' && form.object != current_user %>
       </div>
       <div class="actions">
         <%= form.submit %>
