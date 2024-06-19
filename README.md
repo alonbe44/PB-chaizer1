@@ -1,30 +1,33 @@
-# README
+# Project Name:
+Power Banks Management System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Description:
+This project is a Ruby on Rails backend API designed to efficiently manage Power Banks and their distribution across various locations, stations, and warehouses. It features CRUD operations on multiple entities, establishing relationships between them. The system includes user authentication for secure login, user permissions, and policies to control data access. The frontend interface is designed to be smooth and user-friendly, utilizing Bootstrap for styling.
 
-* Project Name : Power Banks Management System.
+## Technologies Used:
+- Ruby version: ruby 3.1.2p20
+- Rails version: Rails 7.1.3.4
+- Database: PostgreSQL 15.7
+- Frontend: Bootstrap 
 
-* Description :  Rails backend API to manage Power Banks and their distribution across
-various locations, stations, and warehouses.
-* 
-* Ruby version : ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [x86_64-linux]
+## Owner:
+- Owner: Abdelrahman Rasem : alonbe44@gmail.com
 
-* Rails version : Rails 7.1.3.4
+## System Dependencies:
+Ensure you have the following installed:
+- Ruby 3.1.2p20
+- Rails 7.1.3.4
+- PostgreSQL 15.7
 
-* System dependencies : 
-Ruby 3.1.2p20
-Rails 7.1.3.4
-psql (PostgreSQL) 15.7
-
-* Configuration :
+## Configuration:
+1. Clone the repository:
+```
 git clone https://github.com/alonbe44/PB-chaizer1.git
 cd PB-chaizer1
-bundle install
-
-* Database creation :
-
-Edit config/database.yml with your database settings:
+```
+2. Install dependencies:
+3. Edit `config/database.yml` with your PostgreSQL database settings:
+```
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -33,42 +36,48 @@ default: &default
   password: your_password
   host: localhost
   port: 5432 # or your PostgreSQL port
+```
+## Database Setup:
 
-* Database initialization
+### Initialize the database:
+```
+rails db:setup
+```
+This command will create the database, run migrations, and seed initial data if provided.
 
-rails db:create
-rails db:migrate
-rails db:seed # if you have seed data
 
-If you're starting fresh, you can combine these commands into one:
-
-rails db:setup      # Creates database, runs migrations, and seeds (if seed file exists)
-
-* Usage :
-  * On Linux (Ubuntu/Debian) : 
-  # Install rbenv
+## Usage:
+### On Linux (Ubuntu/Debian):
+Install rbenv:
+ ```
 sudo apt-get update
 sudo apt-get install rbenv
+```
+Install Ruby (replace <ruby_version> with your desired Ruby version):
 
-# Install Ruby
 
-* On Linux (Ubuntu/Debian)
+```
 rbenv install <ruby_version>
 rbenv global <ruby_version>
-
+```
+Navigate to your project directory:
+```
 cd PB-chaizer1
-* Install dependencies and set up the database:
+```
+Install dependencies and set up the database:
+
+```
 bundle install
 rails db:setup
-* Start the Rails server:
+#Start the Rails server:
 rails server
- 
-*Bonus:
-● Implement validations and error handling.
-● Include search functionality with  Serial number Filters.
-● Implement a simple front-end.
+```
+## Bonus Features:
 
-* How to run the test suite
-
-
-
+* Implemented validations and error handling.
+* Includes search functionality with Serial Number filters.
+* Basic front-end implementation (Designed a smooth and user-friendly UI using Bootstrap).
+* Implemented CRUD operations for multiple entities.
+* Established relationships between entities in the database.
+* User authentication for secure login.
+* Implemented user permissions and policies for secure data access.
