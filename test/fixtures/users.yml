@@ -1,11 +1,7 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+admin_user:
+  email: admin@example.com
+  role: "admin"
 
-one:
-  email: MyString
-  password_digest: MyString
-  role: MyString
-
-two:
-  email: MyString
-  password_digest: MyString
-  role: MyString
+normal_user:
+  email: user@example.com
+  role: "normal"

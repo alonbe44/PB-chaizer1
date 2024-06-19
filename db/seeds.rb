@@ -1,5 +1,4 @@
-# Create admin user
-require_relative '../config/environment'# db/seeds.rb
+require_relative '../config/environment'
 
 # Create admin user
 admin = User.find_or_create_by!(email: 'admin12@example.com') do |user|
@@ -14,7 +13,7 @@ normal_user = User.find_or_create_by!(email: 'user@example.com') do |user|
   user.password_confirmation = 'password'
   user.role = 'normal'
 end
-#http://localhost:3000/users
+
 # Create warehouse
 warehouse = Warehouse.find_or_create_by!(name: 'Main Warehouse', address: '123 Warehouse St')
 
@@ -25,12 +24,18 @@ location = Location.find_or_create_by!(name: 'Downtown', address: '456 Main St')
 station1 = Station.find_or_create_by!(name: 'Station 1', status: 'online', location: location)
 station2 = Station.find_or_create_by!(name: 'Station 2', status: 'offline', warehouse: warehouse)
 
-# Create power banks and assign them to station1
-10.times do |i|
-  PowerBank.find_or_create_by!(serial_number: "friend-#{i+2}", status: 'available', station: station1)
+# Ensure station1 has exactly 10 power banks
+2.times do |i|
+  serial_number = "PB-#{i + 1}"
+  PowerBank.find_or_create_by!(serial_number: serial_number, status: 'available', station: station1)
 end
 
-# Create power banks and assign them to the warehouse
+# Ensure warehouse has exactly 5 power banks
 5.times do |i|
-  PowerBank.find_or_create_by!(serial_number: "friend-#{i+11}", status: 'available', warehouse: warehouse)
+  serial_number = "PB-#{i + 11}"
+  PowerBank.find_or_create_by!(serial_number: serial_number, status: 'available', warehouse: warehouse)
 end
+
+# Ensure unique power banks are created with specific serial numbers
+PowerBank.find_or_create_by!(serial_number: "unique_serial_number_1", status: 'available', station: station1)
+PowerBank.find_or_create_by!(serial_number: "unique_serial_number_2", status: 'available', station: station1)
