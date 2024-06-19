@@ -1,5 +1,15 @@
 
 <!-- app/views/users/index.html.erb -->
+<% if user_signed_in? %>
+  <div class="container mt-4" style="text-align: center;">
+    <p style="font-weight: bold;">Welcome, <%= current_user.email %></p>
+    <%= link_to 'Main Page', '/', class: 'btn btn-primary', style: 'margin-top: 10px;' %>
+  </div>
+<% else %>
+  <div class="container mt-4" style="text-align: center;">
+    <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary', style: 'margin-top: 10px;' %>
+  </div>
+<% end %>
 <h1 class="text-center my-4">Locations Management</h1>
 
 <div class="container">

@@ -1,40 +1,140 @@
-<h1>Edit User</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @user.new_record? ? 'New User' : 'Edit User' %></title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9fafc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .field, .actions {
+      margin-bottom: 20px;
+    }
+    .field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    .field input[type="text"],
+    .field input[type="password"],
+    .field select {
+      width: calc(100% - 20px); /* Adjusting width to accommodate padding */
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-sizing: border-box;
+      margin-top: 5px; /* Added margin for spacing between fields */
+    }
+    .actions input[type="submit"] {
+      width: 100%;
+      padding: 15px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .actions input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    #error_explanation {
+      border: 2px solid #ff4c4c;
+      padding: 15px;
+      background-color: #ffe6e6;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    #error_explanation h2 {
+      color: #ff4c4c;
+      margin: 0 0 10px;
+    }
+    #error_explanation ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    #error_explanation ul li {
+      color: #ff4c4c;
+    }
+    .back-link {
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><%= @user.new_record? ? 'New User' : 'Edit User' %></h1>
+    <%= form_with(model: @user) do |form| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-<%= form_with(model: @user) do |form| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+      <div class="field">
+        <%= form.label :email %>
+        <%= form.text_field :email, class: 'form-control' %>
+      </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+      <div class="field">
+        <%= form.label :password %>
+        <%= form.password_field :password, class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :password_confirmation %>
+        <%= form.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <%= form.label :role %>
+        <%= form.select :role, options_for_select([['Admin', 'admin'], ['Normal', 'normal']], @user.role), {}, class: 'form-control' %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit 'Save', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+
+    <%= link_to 'Back', users_path, class: 'back-link' %>
   </div>
-
-  <div class="field">
-    <%= form.label :password %>
-    <%= form.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation %>
-  </div>
-
-  <div class="field">
-    <%= form.label :role %>
-    <%= form.select :role, options_for_select([['Admin', 'admin'], ['Normal', 'normal']], @user.role) %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', users_path %>
+</body>
+</html>
