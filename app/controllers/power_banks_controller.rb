@@ -12,8 +12,14 @@ class PowerBanksController < ApplicationController
     @power_banks = PowerBank.all
     authorize @power_banks  # Use `authorize` to check authorization
     # render json: @power_banks
+
+  if params[:search].present?
+    @power_banks = @power_banks.where("serial_number LIKE ?", "%#{params[:search]}%")
+  end
     render("power_banks/PowerBanks")
   end
+
+
   def new
     @power_banks =   PowerBank.new
     authorize @power_banks
